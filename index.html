@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BrightEdge Task Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- Icon set (used everywhere with <use href="#i-name">) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="i-tasks" viewBox="0 0 24 24"><path d="M9 6h11M9 12h11M9 18h11"/><path d="M3.5 6l1.5 1.5L7.5 5M3.5 12l1.5 1.5L7.5 11M3.5 18l1.5 1.5L7.5 17"/></symbol>
+    <symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1.5"/><rect x="14" y="3" width="7" height="5" rx="1.5"/><rect x="14" y="12" width="7" height="9" rx="1.5"/><rect x="3" y="16" width="7" height="5" rx="1.5"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.7.4-1 1-1 1.7"/><path d="M12 17.2h.01"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16v4z"/><path d="M13.5 6.5l4 4"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4M5 5h11l-2 4 2 4H5"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 3l10 18H2L12 3z"/><path d="M12 10v4.5M12 17.8h.01"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5M4 20h16"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><path d="M12 16V5M7 9l5-5 5 5M4 20h16"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 5l12 7-12 7z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.2h.01"/></symbol>
+    <symbol id="i-list" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4M16 8l4 4-4 4M20 12H9"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+  </svg>
+
+  <!-- ================= LOGIN / SIGN UP SCREEN ================= -->
+  <div class="auth-screen" id="auth-screen" hidden>
+    <aside class="auth-side" aria-hidden="true">
+      <div class="auth-side-inner">
+        <div class="brand">
+          <svg class="brand-mark" viewBox="0 0 32 32">
+            <rect width="32" height="32" rx="8" fill="#ffffff" fill-opacity="0.16"/>
+            <path d="M8 17l5 5 11-12" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 6h6v6" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="brand-text">
+            <span class="brand-name">BrightEdge</span>
+            <span class="brand-sub">Task Manager</span>
+          </div>
+        </div>
+        <h2>Stay on top of every task.</h2>
+        <p>One simple place for your team to plan, prioritise and finish the day's work.</p>
+        <ul class="auth-points">
+          <li><svg class="icon"><use href="#i-check"/></svg> Add, edit and complete tasks</li>
+          <li><svg class="icon"><use href="#i-check"/></svg> Track due dates and priorities</li>
+          <li><svg class="icon"><use href="#i-check"/></svg> See your progress on a live dashboard</li>
+        </ul>
+      </div>
+    </aside>
+
+    <section class="auth-main">
+      <div class="auth-card">
+        <h1>Welcome to BrightEdge</h1>
+        <p class="auth-sub">Log in or create an account to manage your tasks.</p>
+
+        <div class="auth-tabs" role="tablist" aria-label="Account options">
+          <button type="button" class="auth-tab" role="tab" data-auth-tab="login" aria-selected="true" aria-controls="login-form">Log in</button>
+          <button type="button" class="auth-tab" role="tab" data-auth-tab="signup" aria-selected="false" aria-controls="signup-form" tabindex="-1">Create account</button>
+        </div>
+
+        <div class="demo-note" role="note">
+          <svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg>
+          <p><strong>Demo login.</strong> Accounts are saved only in this browser. Please do not use a real password.</p>
+        </div>
+
+        <form id="login-form" novalidate>
+          <div class="field">
+            <label for="login-email">Email</label>
+            <input id="login-email" type="email" autocomplete="username" placeholder="you@company.com">
+          </div>
+          <div class="field">
+            <label for="login-password">Password</label>
+            <input id="login-password" type="password" autocomplete="current-password" data-pw>
+          </div>
+          <div class="check-rows">
+            <label class="check-row"><input type="checkbox" data-show-passwords> Show password</label>
+            <label class="check-row"><input type="checkbox" id="login-remember"> Remember me</label>
+          </div>
+          <p id="login-error" class="error" role="alert" hidden></p>
+          <button type="submit" class="btn btn-primary btn-block">Log in</button>
+          <p class="auth-switch">New here? <button type="button" class="link-btn" data-auth-switch="signup">Create an account</button></p>
+        </form>
+
+        <form id="signup-form" novalidate hidden>
+          <div class="field">
+            <label for="signup-name">Full name</label>
+            <input id="signup-name" type="text" maxlength="40" autocomplete="name" placeholder="e.g. Melissa Grant">
+          </div>
+          <div class="field">
+            <label for="signup-email">Email</label>
+            <input id="signup-email" type="email" autocomplete="username" placeholder="you@company.com">
+          </div>
+          <div class="field">
+            <label for="signup-password">Password</label>
+            <input id="signup-password" type="password" autocomplete="new-password" data-pw aria-describedby="signup-hint">
+            <p class="hint" id="signup-hint">At least 8 characters, with a letter and a number.</p>
+          </div>
+          <div class="field">
+            <label for="signup-confirm">Confirm password</label>
+            <input id="signup-confirm" type="password" autocomplete="new-password" data-pw>
+          </div>
+          <div class="check-rows">
+            <label class="check-row"><input type="checkbox" data-show-passwords> Show passwords</label>
+            <label class="check-row"><input type="checkbox" id="signup-remember" checked> Keep me signed in</label>
+          </div>
+          <p id="signup-error" class="error" role="alert" hidden></p>
+          <button type="submit" class="btn btn-primary btn-block">Create account</button>
+          <p class="auth-switch">Already have an account? <button type="button" class="link-btn" data-auth-switch="login">Log in</button></p>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= THE APP (shown after login) ================= -->
+  <div class="app" id="app" hidden>
+
+  <!-- Top bar: brand, tabs, dark mode -->
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="#ffffff" fill-opacity="0.16"/>
+          <path d="M8 17l5 5 11-12" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M20 6h6v6" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="brand-text">
+          <span class="brand-name">BrightEdge</span>
+          <span class="brand-sub">Task Manager</span>
+        </div>
+      </div>
+
+      <nav class="tabs" role="tablist" aria-label="Main sections">
+        <button class="tab" role="tab" id="tab-tasks" data-tab="tasks" aria-controls="panel-tasks" aria-selected="true">
+          <svg class="icon" aria-hidden="true"><use href="#i-tasks"/></svg>
+          <span class="tab-label">Tasks</span>
+          <span class="tab-badge" id="tab-badge" hidden>0</span>
+        </button>
+        <button class="tab" role="tab" id="tab-dashboard" data-tab="dashboard" aria-controls="panel-dashboard" aria-selected="false" tabindex="-1">
+          <svg class="icon" aria-hidden="true"><use href="#i-dashboard"/></svg>
+          <span class="tab-label">Dashboard</span>
+        </button>
+        <button class="tab" role="tab" id="tab-help" data-tab="help" aria-controls="panel-help" aria-selected="false" tabindex="-1">
+          <svg class="icon" aria-hidden="true"><use href="#i-help"/></svg>
+          <span class="tab-label">Help</span>
+        </button>
+      </nav>
+
+      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Toggle dark mode">
+        <svg class="icon icon-moon" aria-hidden="true"><use href="#i-moon"/></svg>
+        <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
+        <span id="theme-label" class="theme-label">Dark</span>
+      </button>
+
+      <button id="account-btn" class="account-btn" type="button" aria-label="Open account settings" title="Account settings">
+        <span class="avatar" id="header-avatar" aria-hidden="true"></span>
+        <span class="account-name" id="header-name"></span>
+      </button>
+
+      <button id="logout-btn" class="theme-toggle icon-only" type="button" aria-label="Log out" title="Log out">
+        <svg class="icon" aria-hidden="true"><use href="#i-logout"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+
+    <!-- ================= TASKS TAB ================= -->
+    <section id="panel-tasks" class="panel" role="tabpanel" aria-labelledby="tab-tasks">
+
+      <div class="hero">
+        <div class="hero-text">
+          <p class="hero-date" id="hero-date"></p>
+          <h1 id="hero-greeting">Welcome</h1>
+          <p class="hero-summary" id="hero-summary"></p>
+        </div>
+        <div class="hero-side">
+          <div class="mini-ring" aria-hidden="true">
+            <svg viewBox="0 0 44 44">
+              <circle class="ring-track" cx="22" cy="22" r="18" pathLength="100"/>
+              <circle class="ring-fill" id="hero-ring" cx="22" cy="22" r="18" pathLength="100" stroke-dasharray="0 100"/>
+            </svg>
+            <span id="hero-ring-text">0%</span>
+          </div>
+          <button id="new-task-btn" class="btn btn-accent btn-large" type="button">
+            <svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>
+            New task <kbd>N</kbd>
+          </button>
+        </div>
+      </div>
+
+      <div class="card toolbar-card" id="task-toolbar">
+        <div class="toolbar-row">
+          <div class="search-box">
+            <svg class="icon" aria-hidden="true"><use href="#i-search"/></svg>
+            <label for="search-input" class="sr-only">Search tasks</label>
+            <input id="search-input" type="search" placeholder="Search tasks...  ( / )" autocomplete="off">
+          </div>
+          <div class="sort-box">
+            <label for="sort-select">Sort by</label>
+            <select id="sort-select">
+              <option value="newest">Newest first</option>
+              <option value="oldest">Oldest first</option>
+              <option value="due">Due date (soonest)</option>
+              <option value="priority">Priority (high first)</option>
+            </select>
+          </div>
+        </div>
+        <div class="toolbar-row">
+          <div class="filters" role="group" aria-label="Filter tasks">
+            <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">All <span class="count" data-count="all">0</span></button>
+            <button type="button" class="filter-btn" data-filter="active" aria-pressed="false">Active <span class="count" data-count="active">0</span></button>
+            <button type="button" class="filter-btn" data-filter="completed" aria-pressed="false">Completed <span class="count" data-count="completed">0</span></button>
+          </div>
+          <button id="clear-completed" class="btn btn-ghost btn-small" type="button">
+            <svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg>
+            Clear completed
+          </button>
+        </div>
+      </div>
+
+      <ul id="task-list" class="task-list"></ul>
+
+      <div id="empty-state" class="empty-state" hidden>
+        <svg class="empty-art" viewBox="0 0 120 120" aria-hidden="true">
+          <rect x="26" y="18" width="68" height="88" rx="10" class="art-board"/>
+          <rect x="44" y="10" width="32" height="16" rx="6" class="art-clip"/>
+          <path d="M40 48h10M40 66h10M40 84h10" class="art-line"/>
+          <path d="M58 48h22M58 66h22M58 84h14" class="art-line art-soft"/>
+          <circle cx="92" cy="92" r="16" class="art-badge"/>
+          <path d="M85 92l5 5 9-10" class="art-check"/>
+        </svg>
+        <h3 id="empty-title"></h3>
+        <p id="empty-text"></p>
+        <button id="empty-new-btn" class="btn btn-primary" type="button">
+          <svg class="icon" aria-hidden="true"><use href="#i-plus"/></svg>
+          Create a task
+        </button>
+      </div>
+    </section>
+
+    <!-- ================= DASHBOARD TAB ================= -->
+    <section id="panel-dashboard" class="panel" role="tabpanel" aria-labelledby="tab-dashboard" hidden>
+      <div class="page-head">
+        <h1>Dashboard</h1>
+        <p>A quick picture of how your team's work is going.</p>
+      </div>
+
+      <div class="stat-grid">
+        <div class="stat-card stat-total">
+          <span class="stat-icon"><svg class="icon" aria-hidden="true"><use href="#i-list"/></svg></span>
+          <div><p class="stat-value" id="stat-total">0</p><p class="stat-label">Total tasks</p></div>
+        </div>
+        <div class="stat-card stat-active">
+          <span class="stat-icon"><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg></span>
+          <div><p class="stat-value" id="stat-active">0</p><p class="stat-label">Active</p></div>
+        </div>
+        <div class="stat-card stat-done">
+          <span class="stat-icon"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>
+          <div><p class="stat-value" id="stat-completed">0</p><p class="stat-label">Completed</p></div>
+        </div>
+        <div class="stat-card stat-overdue">
+          <span class="stat-icon"><svg class="icon" aria-hidden="true"><use href="#i-alert"/></svg></span>
+          <div><p class="stat-value" id="stat-overdue">0</p><p class="stat-label">Overdue</p></div>
+        </div>
+      </div>
+
+      <div class="dash-grid">
+        <div class="card">
+          <h2 class="card-title">Completion rate</h2>
+          <div class="ring-wrap">
+            <div class="big-ring">
+              <svg viewBox="0 0 120 120" aria-hidden="true">
+                <circle class="ring-track" cx="60" cy="60" r="50" pathLength="100"/>
+                <circle class="ring-fill" id="big-ring" cx="60" cy="60" r="50" pathLength="100" stroke-dasharray="0 100"/>
+              </svg>
+              <span id="big-ring-text">0%</span>
+            </div>
+            <p class="ring-caption" id="ring-caption">Add tasks to see your progress.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">Active tasks by priority</h2>
+          <div class="bars">
+            <div class="bar-row" data-priority="high"><span class="bar-name">High</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-count">0</span></div>
+            <div class="bar-row" data-priority="medium"><span class="bar-name">Medium</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-count">0</span></div>
+            <div class="bar-row" data-priority="low"><span class="bar-name">Low</span><span class="bar-track"><span class="bar-fill"></span></span><span class="bar-count">0</span></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">Needs attention</h2>
+          <p class="card-sub">Overdue, or due in the next 7 days</p>
+          <ul class="mini-list" id="due-soon-list"></ul>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">Recently completed</h2>
+          <p class="card-sub">Your last 5 finished tasks</p>
+          <ul class="mini-list" id="recent-list"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= HELP TAB ================= -->
+    <section id="panel-help" class="panel" role="tabpanel" aria-labelledby="tab-help" hidden>
+      <div class="page-head page-head-row">
+        <div>
+          <h1>Help &amp; guide</h1>
+          <p>Everything you need to use and look after this tool.</p>
+        </div>
+        <button id="replay-tour" class="btn btn-primary" type="button">
+          <svg class="icon" aria-hidden="true"><use href="#i-play"/></svg>
+          Replay welcome tour
+        </button>
+      </div>
+
+      <h2 class="section-title">Quick start</h2>
+      <div class="steps-grid">
+        <div class="step-card"><span class="step-num">1</span><h3>Create a task</h3><p>Click <strong>New task</strong>. Type a title, then pick a priority and a due date if you want.</p></div>
+        <div class="step-card"><span class="step-num">2</span><h3>Work through it</h3><p>Use the search box, filters and sort menu to find what matters today.</p></div>
+        <div class="step-card"><span class="step-num">3</span><h3>Finish it</h3><p>Click the round button on a task to mark it complete. You will see a confirmation first.</p></div>
+      </div>
+
+      <h2 class="section-title">Feature guide</h2>
+      <div class="accordion">
+        <details open>
+          <summary>Adding a task</summary>
+          <div class="acc-body">
+            <p>Click <strong>New task</strong> (or press <kbd>N</kbd>). A window opens.</p>
+            <ul>
+              <li><strong>Title</strong> is required (up to 100 characters).</li>
+              <li><strong>Description</strong> is optional. Use it for extra details.</li>
+              <li><strong>Due date</strong> is optional. The <em>Today</em>, <em>Tomorrow</em> and <em>In 1 week</em> buttons are shortcuts.</li>
+              <li><strong>Priority</strong> can be Low, Medium or High.</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>Completing a task</summary>
+          <div class="acc-body">
+            <p>Click the round button on the left of a task. A window asks "Are you sure you want to continue?". Click <strong>Confirm</strong> and the task is marked complete, with the date and time saved.</p>
+            <p class="note"><strong>Important:</strong> completed tasks are final. They cannot be edited or reopened. You can still delete them.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Editing and deleting</summary>
+          <div class="acc-body">
+            <p>Use the pencil button to edit an active task. Use the bin button to delete a task. Deleting always asks you to confirm, and it cannot be undone.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Search, sort and filter</summary>
+          <div class="acc-body">
+            <ul>
+              <li><strong>Search</strong> looks in titles and descriptions. Press <kbd>/</kbd> to jump to it.</li>
+              <li><strong>Sort</strong> by newest, oldest, due date or priority.</li>
+              <li><strong>Filters</strong> show All, Active or Completed tasks. The numbers show how many are in each group.</li>
+              <li><strong>Clear completed</strong> removes all finished tasks at once (after you confirm).</li>
+            </ul>
+          </div>
+        </details>
+        <details>
+          <summary>Dates and overdue tasks</summary>
+          <div class="acc-body">
+            <p>Each task shows when it was created, when it is due and, once finished, when it was completed. If a due date has passed and the task is still active, it is marked <strong>Overdue</strong> in orange.</p>
+          </div>
+        </details>
+        <details>
+          <summary>The Dashboard</summary>
+          <div class="acc-body">
+            <p>The Dashboard tab shows totals, your completion rate, active tasks by priority, tasks that need attention soon, and your most recently completed tasks.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Your account and login</summary>
+          <div class="acc-body">
+            <ul>
+              <li><strong>Create an account</strong> with your name, email and a password. Each account has its own separate task list.</li>
+              <li><strong>Remember me</strong> keeps you signed in. Leave it off and you are signed out when you close the browser.</li>
+              <li>Click your <strong>avatar</strong> at the top to see your account, change your password or delete your account.</li>
+              <li>Use the <strong>arrow button</strong> next to it to log out.</li>
+            </ul>
+            <p class="note"><strong>Demo only:</strong> accounts are saved in this browser and are not real security. Do not use a real password.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Dark mode</summary>
+          <div class="acc-body">
+            <p>Click the moon or sun button at the top right. The tool remembers your choice.</p>
+          </div>
+        </details>
+      </div>
+
+      <h2 class="section-title" id="shortcuts-heading">Keyboard shortcuts</h2>
+      <div class="card shortcuts">
+        <div class="shortcut"><kbd>N</kbd><span>Create a new task</span></div>
+        <div class="shortcut"><kbd>/</kbd><span>Search tasks</span></div>
+        <div class="shortcut"><kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd><span>Go to Tasks, Dashboard, Help</span></div>
+        <div class="shortcut"><kbd>?</kbd><span>Open this Help page</span></div>
+        <div class="shortcut"><kbd>Esc</kbd><span>Close a window or the tour</span></div>
+      </div>
+
+      <h2 class="section-title">Your data</h2>
+      <div class="card data-card">
+        <p>Your tasks are saved <strong>inside this browser</strong> on this computer, under your account. They stay after you refresh or close the page.</p>
+        <ul class="plain-list">
+          <li>Data is <strong>not shared</strong> between people, computers or browsers. Each account on this computer has its own task list.</li>
+          <li>Private or incognito windows start empty.</li>
+          <li>Clearing your browser's site data deletes your tasks, so make a backup now and then.</li>
+        </ul>
+        <div class="data-actions">
+          <button id="export-btn" class="btn btn-secondary" type="button">
+            <svg class="icon" aria-hidden="true"><use href="#i-download"/></svg>
+            Download backup
+          </button>
+          <button id="import-btn" class="btn btn-secondary" type="button">
+            <svg class="icon" aria-hidden="true"><use href="#i-upload"/></svg>
+            Restore from backup
+          </button>
+          <button id="reset-btn" class="btn btn-danger-outline" type="button">
+            <svg class="icon" aria-hidden="true"><use href="#i-trash"/></svg>
+            Delete all tasks
+          </button>
+        </div>
+        <input type="file" id="import-file" accept=".json,application/json" hidden>
+      </div>
+
+      <h2 class="section-title">For administrators</h2>
+      <div class="accordion">
+        <details>
+          <summary>How the tool is built</summary>
+          <div class="acc-body">
+            <p>It is made of three files kept together in one folder: <code>index.html</code> (the page), <code>style.css</code> (the look) and <code>script.js</code> (how it works). There is nothing to install and no server. Open <code>index.html</code> in a browser to run it.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Changing colours</summary>
+          <div class="acc-body">
+            <p>Open <code>style.css</code>. The colour lists at the top (<code>:root</code> for light mode and <code>[data-theme="dark"]</code> for dark mode) control every colour in the tool. Change a value there and save.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Adding a new field to tasks</summary>
+          <div class="acc-body">
+            <p>For example, "Assigned to". Four small changes are needed:</p>
+            <ol>
+              <li>Add an input to the task form in <code>index.html</code>.</li>
+              <li>In <code>script.js</code>, read the new input when a task is saved (search for <code>saveTaskFromForm</code>).</li>
+              <li>Keep the field when saved data is loaded (search for <code>sanitizeTasks</code>).</li>
+              <li>Show it on the card (search for <code>createTaskItem</code>).</li>
+            </ol>
+          </div>
+        </details>
+        <details>
+          <summary>About the demo login</summary>
+          <div class="acc-body">
+            <p>This login is a prototype. Accounts and passwords are stored in the browser (passwords are scrambled, not saved as plain text), and there is no server. That means it is not secure against someone with access to the computer, and accounts cannot be shared between devices.</p>
+            <p>For real use, the login needs an online service that stores accounts and tasks safely. The screens and features here can be reused for that.</p>
+          </div>
+        </details>
+        <details>
+          <summary>Making a safe copy before editing</summary>
+          <div class="acc-body">
+            <p>Copy the whole folder first. If something breaks, delete the edited folder and use the copy again. Tasks are stored in the browser, so they are not affected by file changes.</p>
+          </div>
+        </details>
+      </div>
+
+      <h2 class="section-title">Common questions</h2>
+      <div class="accordion">
+        <details>
+          <summary>Why can't I edit a completed task?</summary>
+          <div class="acc-body"><p>Completed tasks are locked so the record of finished work stays accurate. If a task was completed by mistake, delete it and create it again.</p></div>
+        </details>
+        <details>
+          <summary>My team can't see my tasks. Why?</summary>
+          <div class="acc-body"><p>This tool saves tasks in each person's own browser. It does not send data anywhere, which keeps it simple and private, but it also means tasks are not shared. Use <em>Download backup</em> and <em>Restore from backup</em> to move tasks to another computer.</p></div>
+        </details>
+        <details>
+          <summary>I forgot my password.</summary>
+          <div class="acc-body"><p>This demo has no password reset, because accounts exist only in this browser. You can create a new account with a different email. Tasks belong to an account, so the old account's tasks stay with it.</p></div>
+        </details>
+        <details>
+          <summary>My tasks disappeared.</summary>
+          <div class="acc-body"><p>Check that you are using the same browser and not a private window. If you cleared your browser data, restore from a backup file if you have one.</p></div>
+        </details>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+            <rect width="32" height="32" rx="8" fill="#ffffff" fill-opacity="0.16"/>
+            <path d="M8 17l5 5 11-12" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 6h6v6" fill="none" stroke="#22d3ee" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <div class="brand-text">
+            <span class="brand-name">BrightEdge</span>
+            <span class="brand-sub">Task Manager</span>
+          </div>
+        </div>
+
+        <nav class="footer-nav" aria-label="Footer">
+          <button type="button" class="footer-link" data-goto="tasks">Tasks</button>
+          <button type="button" class="footer-link" data-goto="dashboard">Dashboard</button>
+          <button type="button" class="footer-link" data-goto="help">Help</button>
+          <button type="button" class="footer-link" data-goto="help" data-scroll="shortcuts-heading">Keyboard shortcuts</button>
+        </nav>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; <span id="footer-year">2026</span> BrightEdge Technologies. All rights reserved.</p>
+        <p>Version 1.1</p>
+      </div>
+    </div>
+  </footer>
+
+  </div><!-- end of #app -->
+
+  <!-- Confirmation window (complete, delete, clear, restore) -->
+  <div class="modal-backdrop" id="confirm-modal" hidden>
+    <div class="modal modal-small" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-message">
+      <div class="confirm-icon" id="confirm-icon"><svg class="icon" aria-hidden="true"><use href="#i-info"/></svg></div>
+      <h2 id="confirm-title"></h2>
+      <p id="confirm-message"></p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" data-close>Cancel</button>
+        <button type="button" id="confirm-ok" class="btn btn-primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add / edit task window -->
+  <div class="modal-backdrop" id="task-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="task-modal-title">
+      <div class="modal-head">
+        <div>
+          <h2 id="task-modal-title">New task</h2>
+          <p class="modal-sub" id="task-modal-sub">Fill in the details below.</p>
+        </div>
+        <button type="button" class="icon-btn" data-close aria-label="Close">
+          <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
+        </button>
+      </div>
+
+      <form id="task-form" novalidate>
+        <div class="field">
+          <label for="task-title">Title <span class="req" aria-hidden="true">*</span></label>
+          <input id="task-title" type="text" maxlength="100" autocomplete="off" placeholder="e.g. Prepare weekly report" aria-describedby="task-error">
+          <p id="task-error" class="error" role="alert" hidden></p>
+        </div>
+
+        <div class="field">
+          <label for="task-description">Description <span class="optional">(optional)</span></label>
+          <textarea id="task-description" rows="3" maxlength="500" placeholder="Add any details that help your team"></textarea>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="task-due">Due date <span class="optional">(optional)</span></label>
+            <input id="task-due" type="date">
+            <div class="quick-dates">
+              <button type="button" class="chip-btn" data-due-offset="0">Today</button>
+              <button type="button" class="chip-btn" data-due-offset="1">Tomorrow</button>
+              <button type="button" class="chip-btn" data-due-offset="7">In 1 week</button>
+            </div>
+          </div>
+
+          <fieldset class="field segmented">
+            <legend>Priority</legend>
+            <div class="seg-group">
+              <label class="seg seg-low"><input type="radio" name="priority" value="low"><span>Low</span></label>
+              <label class="seg seg-medium"><input type="radio" name="priority" value="medium" checked><span>Medium</span></label>
+              <label class="seg seg-high"><input type="radio" name="priority" value="high"><span>High</span></label>
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-secondary" data-close>Cancel</button>
+          <button type="submit" class="btn btn-primary" id="task-submit">Add task</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Account window -->
+  <div class="modal-backdrop" id="account-modal" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="account-title">
+      <div class="modal-head">
+        <h2 id="account-title">Your account</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Close">
+          <svg class="icon" aria-hidden="true"><use href="#i-x"/></svg>
+        </button>
+      </div>
+
+      <div class="profile-row">
+        <span class="avatar avatar-lg" id="account-avatar" aria-hidden="true"></span>
+        <div>
+          <p class="profile-name" id="account-name"></p>
+          <p class="profile-meta" id="account-email"></p>
+          <p class="profile-meta" id="account-since"></p>
+        </div>
+      </div>
+
+      <form id="password-form" class="account-section" novalidate>
+        <h3>Change password</h3>
+        <div class="field">
+          <label for="pw-current">Current password</label>
+          <input id="pw-current" type="password" autocomplete="current-password" data-pw>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="pw-new">New password</label>
+            <input id="pw-new" type="password" autocomplete="new-password" data-pw>
+          </div>
+          <div class="field">
+            <label for="pw-confirm">Confirm new password</label>
+            <input id="pw-confirm" type="password" autocomplete="new-password" data-pw>
+          </div>
+        </div>
+        <label class="check-row"><input type="checkbox" data-show-passwords> Show passwords</label>
+        <p id="pw-message" role="alert" hidden></p>
+        <button type="submit" class="btn btn-primary">Update password</button>
+      </form>
+
+      <form id="delete-form" class="account-section danger-zone" novalidate>
+        <h3>Delete account</h3>
+        <p>This permanently deletes your account and all of its tasks. Enter your password to continue.</p>
+        <div class="field">
+          <label for="delete-password">Password</label>
+          <input id="delete-password" type="password" autocomplete="current-password" data-pw>
+          <p id="delete-error" class="error" role="alert" hidden></p>
+        </div>
+        <button type="submit" class="btn btn-danger-outline">Delete my account</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Welcome tour -->
+  <div class="tour" id="tour" hidden>
+    <div class="tour-spot" id="tour-spot"></div>
+    <div class="tour-card" id="tour-card" role="dialog" aria-modal="true" aria-labelledby="tour-title" aria-describedby="tour-text" tabindex="-1">
+      <p class="tour-step" id="tour-step"></p>
+      <h2 id="tour-title"></h2>
+      <p id="tour-text"></p>
+      <div class="tour-dots" id="tour-dots" aria-hidden="true"></div>
+      <div class="tour-actions">
+        <button type="button" class="btn btn-ghost btn-small" id="tour-skip">Skip tour</button>
+        <span class="spacer"></span>
+        <button type="button" class="btn btn-secondary btn-small" id="tour-back">Back</button>
+        <button type="button" class="btn btn-primary btn-small" id="tour-next">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast messages -->
+  <div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+</body>
+</html>
