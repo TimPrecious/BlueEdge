@@ -4,13 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>BrightEdge Task Manager</title>
-<<<<<<< HEAD
   <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
-=======
-  <link rel="stylesheet" href="/style.css">
-  <script src="/script.js" defer></script>
->>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
 </head>
 <body>
 
@@ -36,7 +31,6 @@
     <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
     <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.2h.01"/></symbol>
     <symbol id="i-list" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h10"/></symbol>
-<<<<<<< HEAD
     <symbol id="i-logout" viewBox="0 0 24 24"><path d="M9 4H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h4M16 8l4 4-4 4M20 12H9"/></symbol>
     <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
   </svg>
@@ -131,11 +125,6 @@
 
   <!-- ================= THE APP (shown after login) ================= -->
   <div class="app" id="app" hidden>
-
-=======
-  </svg>
-
->>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
   <!-- Top bar: brand, tabs, dark mode -->
   <header class="topbar">
     <div class="container topbar-inner">
@@ -172,8 +161,6 @@
         <svg class="icon icon-sun" aria-hidden="true"><use href="#i-sun"/></svg>
         <span id="theme-label" class="theme-label">Dark</span>
       </button>
-<<<<<<< HEAD
-
       <button id="account-btn" class="account-btn" type="button" aria-label="Open account settings" title="Account settings">
         <span class="avatar" id="header-avatar" aria-hidden="true"></span>
         <span class="account-name" id="header-name"></span>
@@ -182,8 +169,6 @@
       <button id="logout-btn" class="theme-toggle icon-only" type="button" aria-label="Log out" title="Log out">
         <svg class="icon" aria-hidden="true"><use href="#i-logout"/></svg>
       </button>
-=======
->>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
     </div>
   </header>
 
@@ -398,7 +383,6 @@
           </div>
         </details>
         <details>
-<<<<<<< HEAD
           <summary>Your account and login</summary>
           <div class="acc-body">
             <ul>
@@ -411,8 +395,6 @@
           </div>
         </details>
         <details>
-=======
->>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
           <summary>Dark mode</summary>
           <div class="acc-body">
             <p>Click the moon or sun button at the top right. The tool remembers your choice.</p>
@@ -420,11 +402,7 @@
         </details>
       </div>
 
-<<<<<<< HEAD
       <h2 class="section-title" id="shortcuts-heading">Keyboard shortcuts</h2>
-=======
-      <h2 class="section-title">Keyboard shortcuts</h2>
->>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
       <div class="card shortcuts">
         <div class="shortcut"><kbd>N</kbd><span>Create a new task</span></div>
         <div class="shortcut"><kbd>/</kbd><span>Search tasks</span></div>
@@ -435,15 +413,9 @@
 
       <h2 class="section-title">Your data</h2>
       <div class="card data-card">
-<<<<<<< HEAD
         <p>Your tasks are saved <strong>inside this browser</strong> on this computer, under your account. They stay after you refresh or close the page.</p>
         <ul class="plain-list">
           <li>Data is <strong>not shared</strong> between people, computers or browsers. Each account on this computer has its own task list.</li>
-=======
-        <p>Your tasks are saved <strong>inside this browser</strong> on this computer. They stay after you refresh or close the page.</p>
-        <ul class="plain-list">
-          <li>Data is <strong>not shared</strong> between people, computers or browsers.</li>
->>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
           <li>Private or incognito windows start empty.</li>
           <li>Clearing your browser's site data deletes your tasks, so make a backup now and then.</li>
         </ul>
@@ -491,7 +463,6 @@
           </div>
         </details>
         <details>
-<<<<<<< HEAD
           <summary>About the demo login</summary>
           <div class="acc-body">
             <p>This login is a prototype. Accounts and passwords are stored in the browser (passwords are scrambled, not saved as plain text), and there is no server. That means it is not secure against someone with access to the computer, and accounts cannot be shared between devices.</p>
@@ -499,8 +470,6 @@
           </div>
         </details>
         <details>
-=======
->>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
           <summary>Making a safe copy before editing</summary>
           <div class="acc-body">
             <p>Copy the whole folder first. If something breaks, delete the edited folder and use the copy again. Tasks are stored in the browser, so they are not affected by file changes.</p>
@@ -519,27 +488,19 @@
           <div class="acc-body"><p>This tool saves tasks in each person's own browser. It does not send data anywhere, which keeps it simple and private, but it also means tasks are not shared. Use <em>Download backup</em> and <em>Restore from backup</em> to move tasks to another computer.</p></div>
         </details>
         <details>
-<<<<<<< HEAD
           <summary>I forgot my password.</summary>
           <div class="acc-body"><p>This demo has no password reset, because accounts exist only in this browser. You can create a new account with a different email. Tasks belong to an account, so the old account's tasks stay with it.</p></div>
         </details>
         <details>
-=======
->>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
           <summary>My tasks disappeared.</summary>
           <div class="acc-body"><p>Check that you are using the same browser and not a private window. If you cleared your browser data, restore from a backup file if you have one.</p></div>
         </details>
       </div>
 
-<<<<<<< HEAD
-=======
-      <p class="help-footer">BrightEdge Task Manager &middot; version 1.1 &middot; built by CodeOrbit</p>
->>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
     </section>
 
   </main>
 
-<<<<<<< HEAD
   <!-- Footer -->
   <footer class="site-footer">
     <div class="container">
@@ -572,9 +533,6 @@
   </footer>
 
   </div><!-- end of #app -->
-
-=======
->>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
   <!-- Confirmation window (complete, delete, clear, restore) -->
   <div class="modal-backdrop" id="confirm-modal" hidden>
     <div class="modal modal-small" role="alertdialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-message">
@@ -642,7 +600,6 @@
     </div>
   </div>
 
-<<<<<<< HEAD
   <!-- Account window -->
   <div class="modal-backdrop" id="account-modal" hidden>
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="account-title">
@@ -695,9 +652,6 @@
       </form>
     </div>
   </div>
-
-=======
->>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
   <!-- Welcome tour -->
   <div class="tour" id="tour" hidden>
     <div class="tour-spot" id="tour-spot"></div>
