@@ -5,20 +5,30 @@
 'use strict';
 
 /* ---------- Settings ---------- */
+<<<<<<< HEAD
 const USERS_KEY = 'brightedge.users.v1';
 const SESSION_KEY = 'brightedge.session.v1';
 const THEME_KEY = 'brightedge.theme';
 // Tasks and the tour status are saved per account (the account id is added to the end)
 const TASKS_KEY_PREFIX = 'brightedge.tasks.v2.';
 const TOUR_KEY_PREFIX = 'brightedge.tour.v2.';
+=======
+const TASKS_KEY = 'brightedge.tasks.v1';
+const THEME_KEY = 'brightedge.theme';
+const TOUR_KEY = 'brightedge.tour.v1';
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
 const PRIORITIES = ['low', 'medium', 'high'];
 const PRIORITY_RANK = { high: 0, medium: 1, low: 2 };
 const TABS = ['tasks', 'dashboard', 'help'];
 
 /* ---------- App state ---------- */
+<<<<<<< HEAD
 let users = [];            // all accounts saved in this browser
 let currentUser = null;    // the signed-in account (or null)
 let tasks = [];            // the signed-in account's tasks
+=======
+let tasks = [];            // all tasks
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
 let currentFilter = 'all'; // 'all' | 'active' | 'completed'
 let searchQuery = '';      // lower-case search text
 let sortBy = 'newest';     // 'newest' | 'oldest' | 'due' | 'priority'
@@ -148,6 +158,7 @@ function prefersReducedMotion() {
    Saving and loading (localStorage)
    ========================================================== */
 
+<<<<<<< HEAD
 function tasksKey() { return TASKS_KEY_PREFIX + currentUser.id; }
 function tourKey() { return TOUR_KEY_PREFIX + currentUser.id; }
 
@@ -155,6 +166,11 @@ function saveTasks() {
   if (!currentUser) return;
   try {
     localStorage.setItem(tasksKey(), JSON.stringify(tasks));
+=======
+function saveTasks() {
+  try {
+    localStorage.setItem(TASKS_KEY, JSON.stringify(tasks));
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
   } catch (error) {
     console.warn('Could not save tasks:', error);
   }
@@ -187,9 +203,14 @@ function sanitizeTasks(data) {
 }
 
 function loadTasks() {
+<<<<<<< HEAD
   if (!currentUser) return [];
   try {
     const raw = localStorage.getItem(tasksKey());
+=======
+  try {
+    const raw = localStorage.getItem(TASKS_KEY);
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
     return raw ? sanitizeTasks(JSON.parse(raw)) : [];
   } catch (error) {
     console.warn('Saved data was unreadable, starting fresh:', error);
@@ -285,7 +306,11 @@ function renderHero() {
   const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
 
   $('hero-date').textContent = now.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
+<<<<<<< HEAD
   $('hero-greeting').textContent = greeting + (currentUser ? ', ' + firstName(currentUser) : '') + '!';
+=======
+  $('hero-greeting').textContent = greeting + '!';
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
 
   let summary;
   if (c.total === 0) {
@@ -549,6 +574,7 @@ document.querySelector('.tabs').addEventListener('keydown', (event) => {
 
 window.addEventListener('hashchange', () => showTab(readHash()));
 
+<<<<<<< HEAD
 /* ---------- Footer links and year ---------- */
 
 $('footer-year').textContent = new Date().getFullYear();
@@ -568,6 +594,8 @@ document.querySelectorAll('.footer-link').forEach((btn) => {
   });
 });
 
+=======
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
 /* ==========================================================
    Windows (modals): one function opens, one closes
    ========================================================== */
@@ -988,11 +1016,14 @@ const TOUR_STEPS = [
     text: 'Switch between light and dark mode whenever you like. Your choice is remembered.'
   },
   {
+<<<<<<< HEAD
     target: '#account-btn',
     title: 'Your account',
     text: 'Click your avatar to change your password or delete your account. The arrow button next to it logs you out.'
   },
   {
+=======
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
     title: "You're all set!",
     text: 'Press ? at any time to open Help. Enjoy staying organised.'
   }
@@ -1003,7 +1034,11 @@ function isVisible(node) {
 }
 
 function startTour() {
+<<<<<<< HEAD
   if (tourActive || !currentUser) return;
+=======
+  if (tourActive) return;
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
   goTab('tasks');
   tourActive = true;
   tourReturnFocus = document.activeElement;
@@ -1018,7 +1053,11 @@ function endTour() {
   tour.hidden = true;
   document.body.classList.remove('modal-open');
   try {
+<<<<<<< HEAD
     localStorage.setItem(tourKey(), 'done');
+=======
+    localStorage.setItem(TOUR_KEY, 'done');
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
   } catch (error) {
     console.warn('Could not save tour status:', error);
   }
@@ -1098,7 +1137,11 @@ window.addEventListener('resize', () => {
 
 function tourWasSeen() {
   try {
+<<<<<<< HEAD
     return localStorage.getItem(tourKey()) === 'done';
+=======
+    return localStorage.getItem(TOUR_KEY) === 'done';
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
   } catch (error) {
     return false;
   }
@@ -1141,8 +1184,12 @@ document.addEventListener('keydown', (event) => {
     return;
   }
 
+<<<<<<< HEAD
   // 3. Shortcuts (only when signed in, not while typing, and not with Ctrl / Alt / Cmd)
   if (!currentUser) return;
+=======
+  // 3. Shortcuts (not while typing, and not with Ctrl / Alt / Cmd)
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
   if (event.ctrlKey || event.metaKey || event.altKey) return;
   const tag = event.target.tagName;
   if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || event.target.isContentEditable) return;
@@ -1167,6 +1214,7 @@ document.addEventListener('keydown', (event) => {
 });
 
 /* ==========================================================
+<<<<<<< HEAD
    Accounts (demo login)
    Accounts live in this browser only. Passwords are never saved as
    plain text: they are scrambled with PBKDF2 and a random salt.
@@ -1606,13 +1654,24 @@ $('account-btn').addEventListener('click', openAccountModal);
 $('logout-btn').addEventListener('click', () => logout('You have been signed out.'));
 
 /* ==========================================================
+=======
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
    Start the app
    ========================================================== */
 
 applyTheme(loadTheme());
+<<<<<<< HEAD
 users = loadUsers();
 
 // Already signed in (Remember me)? Go straight to the app. Otherwise show the login screen.
 const savedUser = users.find((u) => u.id === readSession());
 if (savedUser) enterApp(savedUser);
 else showAuth();
+=======
+tasks = loadTasks();
+showTab(readHash());
+render();
+
+// First visit: show the welcome tour
+if (!tourWasSeen()) setTimeout(startTour, 500);
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3

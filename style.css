@@ -108,16 +108,23 @@ body {
 
 body.modal-open { overflow: hidden; }
 
+<<<<<<< HEAD
 .app { min-height: 100vh; display: flex; flex-direction: column; }
 .app[hidden] { display: none; }
 
+=======
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
 h1, h2, h3, p { margin: 0; }
 h1 { font-size: 1.7rem; line-height: 1.2; }
 h2 { font-size: 1.15rem; line-height: 1.3; }
 h3 { font-size: 1rem; }
 
 .container { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+<<<<<<< HEAD
 main.container { flex: 1; width: 100%; padding-top: 24px; padding-bottom: 56px; }
+=======
+main.container { padding-top: 24px; padding-bottom: 64px; }
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
 
 .sr-only {
   position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
@@ -190,7 +197,10 @@ code {
   transition: background 0.15s ease;
 }
 .theme-toggle:hover { background: rgba(255, 255, 255, 0.26); }
+<<<<<<< HEAD
 .theme-toggle.icon-only { padding: 9px; }
+=======
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
 .icon-sun { display: none; }
 [data-theme="dark"] .icon-moon { display: none; }
 [data-theme="dark"] .icon-sun { display: inline; }
@@ -293,7 +303,11 @@ label, legend { display: block; padding: 0; font-weight: 600; font-size: 0.9rem;
 .req { color: var(--error-text); }
 .optional { color: var(--muted); font-weight: 400; }
 
+<<<<<<< HEAD
 input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="search"], select, textarea {
+=======
+input[type="text"], input[type="date"], input[type="search"], select, textarea {
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
   width: 100%; padding: 10px 12px; font: inherit; color: var(--text);
   background: var(--surface-alt); border: 1px solid var(--border); border-radius: var(--radius);
   transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
@@ -517,6 +531,7 @@ input[aria-invalid="true"] { border-color: var(--error-text); }
 .plain-list li { margin: 4px 0; }
 .data-actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
+<<<<<<< HEAD
 /* ---------- Footer ---------- */
 .site-footer {
   margin-top: auto; padding: 28px 0 22px; color: rgba(255, 255, 255, 0.88);
@@ -540,6 +555,9 @@ input[aria-invalid="true"] { border-color: var(--error-text); }
   display: flex; align-items: center; justify-content: space-between; gap: 8px 16px; flex-wrap: wrap;
   padding-top: 16px; font-size: 0.85rem; color: rgba(255, 255, 255, 0.72);
 }
+=======
+.help-footer { margin-top: 36px; text-align: center; color: var(--muted); font-size: 0.85rem; }
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
 
 /* ---------- Modals ---------- */
 .modal-backdrop {
@@ -613,6 +631,7 @@ input[aria-invalid="true"] { border-color: var(--error-text); }
 .toast.error { border-left-color: #ef4444; }
 .toast.leaving { opacity: 0; transform: translateY(8px); transition: all 0.25s ease; }
 
+<<<<<<< HEAD
 /* ---------- Account: avatar and header button ---------- */
 .avatar {
   display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
@@ -709,6 +728,8 @@ input[aria-invalid="true"] { border-color: var(--error-text); }
 #pw-message.success { color: var(--low-text); }
 .danger-zone h3 { color: var(--danger); }
 
+=======
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
 /* ---------- Animations ---------- */
 @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
@@ -744,8 +765,11 @@ input[aria-invalid="true"] { border-color: var(--error-text); }
   .task-actions { margin-left: auto; }
   .modal { padding: 20px; }
   .modal-actions .btn { flex: 1; }
+<<<<<<< HEAD
   .footer-top { flex-direction: column; align-items: flex-start; }
   .footer-bottom { flex-direction: column; align-items: flex-start; }
+=======
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
   .toasts { left: 14px; right: 14px; align-items: stretch; }
   .toast { max-width: none; }
 }
@@ -753,6 +777,7 @@ input[aria-invalid="true"] { border-color: var(--error-text); }
 @media (max-width: 420px) {
   .tab-label { font-size: 0.82rem; }
   .tab .icon { display: none; }
+<<<<<<< HEAD
 }
 
 /* ---------- Login screen and header on smaller screens ---------- */
@@ -766,4 +791,6 @@ input[aria-invalid="true"] { border-color: var(--error-text); }
   .account-name { display: none; }
   .account-btn { padding: 4px; }
   .auth-card { padding: 24px 20px; }
+=======
+>>>>>>> 64f4c01c384b7bed15a80ba21f709f04ffb2d1b3
 }
